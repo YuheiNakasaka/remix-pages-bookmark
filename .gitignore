@@ -4,5 +4,8 @@ node_modules
 /.cache
 /functions/\[\[path\]\].js
 /functions/\[\[path\]\].js.map
+/functions/*.json
 /public/build
 .dev.vars
+
+.vscode

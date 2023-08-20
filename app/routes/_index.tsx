@@ -1,41 +1,30 @@
-import type { V2_MetaFunction } from "@remix-run/cloudflare";
+import { LoaderArgs, json } from "@remix-run/cloudflare";
+import { Form, useLoaderData } from "@remix-run/react";
+import { getAuthenticator } from "~/services/auth.server";
 
-export const meta: V2_MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
+export async function loader({ request, context }: LoaderArgs) {
+  const authenticator = getAuthenticator(context);
+  const user = await authenticator.isAuthenticated(request);
+  return json({ user });
+}
 
 export default function Index() {
+  const { user } = useLoaderData<typeof loader>();
+  if (user) {
+    return (
+      <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+        <h1>Home</h1>
+        <p>Welcome! {user.displayName}</p>
+        <Form method="post" action="/auth/logout">
+          <button type="submit">Logout</button>
+        </Form>
+      </div>
+    );
+  }
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+      <h1>Home</h1>
+      <a href="/login">Login</a>
     </div>
   );
 }

@@ -8,7 +8,9 @@
     "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
     "typecheck": "tsc",
     "pages:deploy": "npm run build && wrangler pages deploy ./public",
-    "migrations:gen": "drizzle-kit generate:sqlite"
+    "migrations:gen": "drizzle-kit generate:sqlite",
+    "local:migrations:apply": "NO_D1_WARNING=true wrangler d1 migrations apply SAMPLE_DB --local",
+    "migrations:apply": "NO_D1_WARNING=true wrangler d1 migrations apply SAMPLE_DB"
   },
   "dependencies": {
     "@remix-run/cloudflare": "^1.16.0",
@@ -31,6 +33,7 @@
     "@remix-run/eslint-config": "^1.16.0",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
+    "better-sqlite3": "^8.5.1",
     "drizzle-kit": "^0.19.13",
     "eslint": "^8.38.0",
     "prettier": "^3.0.2",

@@ -1,5 +1,5 @@
 import { redirect, type ActionArgs } from "@remix-run/cloudflare";
-import { getAuthenticator } from "~/services/auth.server";
+import { getAuthenticator } from "~/features/common/services/auth.server";
 
 export const loader = () => redirect("/login");
 

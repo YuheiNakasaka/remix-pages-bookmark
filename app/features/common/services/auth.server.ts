@@ -8,16 +8,8 @@ import { Authenticator } from "remix-auth";
 import { GoogleStrategy } from "remix-auth-google";
 import { users } from "db/schema";
 import { InferModel, eq } from "drizzle-orm";
-import { createClient } from "~/services/db.server";
-
-interface Env {
-  SESSION_SECRET: string;
-  GOOGLE_AUTH_CALLBACK_URL: string;
-  GOOGLE_AUTH_CLIENT_ID: string;
-  GOOGLE_AUTH_CLIENT_SECRET: string;
-  SESSION_KV: KVNamespace;
-  DB: D1Database;
-}
+import { createClient } from "~/features/common/services/db.server";
+import { Env } from "~/features/common/types/env";
 
 export type AuthUser = {
   id: number;
@@ -69,12 +61,9 @@ export function getAuthenticator(
           displayName: profile.displayName,
           createdAt: new Date(),
         };
-        const ret = await db
-          .insert(users)
-          .values(newUser)
-          .onConflictDoNothing({ target: users.googleProfileId })
-          .returning()
-          .get();
+
+        const ret = await db.insert(users).values(newUser).returning().get();
+
         return {
           id: ret.id,
           googleProfileId: profile.id,

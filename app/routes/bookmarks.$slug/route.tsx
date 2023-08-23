@@ -109,9 +109,16 @@ export default function BookmarkEdit() {
             defaultValue={`${bookmark.comment}`}
           />
           <Spacer size="4xs" />
-          <SubmitButton text="Edit" name="action" value="edit" color="blue" />
+          <SubmitButton
+            key="Edit"
+            text="Edit"
+            name="action"
+            value="edit"
+            color="blue"
+          />
           <Spacer size="4xs" />
           <SubmitButton
+            key="Delete"
             text="Delete"
             name="action"
             value="delete"

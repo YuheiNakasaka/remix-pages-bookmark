@@ -5,7 +5,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual -c \"npm run start\"",
-    "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
+    "start": "wrangler pages dev --local --compatibility-date=2023-08-19 ./public",
     "typecheck": "tsc",
     "pages:deploy": "npm run build && wrangler pages deploy ./public",
     "migrations:gen": "drizzle-kit generate:sqlite",
@@ -39,7 +39,7 @@
     "prettier": "^3.0.2",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.4",
-    "wrangler": "^3.1.1"
+    "wrangler": "^3.5.1"
   },
   "engines": {
     "node": ">=16.13.0"

@@ -81,6 +81,7 @@ export default function Index() {
           <TextareaWithLabel name="comment" label="Comment" />
           <Spacer size="4xs" />
           <SubmitButton
+            key="Create"
             text="Create"
             name="action"
             value="create"

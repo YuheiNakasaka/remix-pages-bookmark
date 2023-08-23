@@ -2,8 +2,8 @@ import { AppLoadContext } from "@remix-run/cloudflare";
 import { bookmarks } from "db/schema";
 import { InferModel, desc, eq } from "drizzle-orm";
 import { createClient } from "~/features/common/services/db.server";
-import { Env } from "~/features/common/types/env";
 import { Bookmark } from "~/features/bookmark/types/bookmark";
+import { Env } from "env";
 
 type CreateBookmark = InferModel<typeof bookmarks, "insert">;
 
@@ -58,6 +58,8 @@ export async function addBookmark(
   if (comment) {
     createBookmark.comment = comment;
   }
+
+  await env.QUEUE.send({ type: "addBookmark", url: url, slug: slug });
 
   const bookmark = await db
     .insert(bookmarks)

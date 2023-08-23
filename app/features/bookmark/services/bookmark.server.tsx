@@ -3,7 +3,6 @@ import { bookmarks } from "db/schema";
 import { InferModel, desc, eq } from "drizzle-orm";
 import { createClient } from "~/features/common/services/db.server";
 import { Bookmark } from "~/features/bookmark/types/bookmark";
-import { Env } from "env";
 
 type CreateBookmark = InferModel<typeof bookmarks, "insert">;
 

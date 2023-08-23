@@ -5,7 +5,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual -c \"npm run start\"",
-    "start": "wrangler pages dev --local --compatibility-date=2023-08-19 ./public",
+    "start": "wrangler pages dev --local --compatibility-date=2023-08-14 ./public",
     "typecheck": "tsc",
     "pages:deploy": "npm run build && wrangler pages deploy ./public",
     "migrations:gen": "drizzle-kit generate:sqlite",
@@ -28,7 +28,6 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.19.0",
     "@remix-run/dev": "^1.16.0",
     "@remix-run/eslint-config": "^1.16.0",
     "@types/react": "^18.0.35",

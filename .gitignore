@@ -6,6 +6,10 @@ node_modules
 /functions/\[\[path\]\].js.map
 /functions/*.json
 /public/build
+/public/_worker.js
+/public/_worker.js.map
+/public/metafile.js.json
+/public/metafile.server.json
 .dev.vars
 
 .vscode

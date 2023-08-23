@@ -7,4 +7,5 @@ declare interface Env {
   DB: D1Database;
   QUEUE: Queue<any>;
   ASSETS: Fetcher;
+  BUCKET: R2Bucket;
 }

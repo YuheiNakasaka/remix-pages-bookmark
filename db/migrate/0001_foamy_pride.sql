@@ -5,7 +5,9 @@ CREATE TABLE `bookmarks` (
 	`url` text NOT NULL,
 	`title` text,
 	`comment` text,
-	`ogpImageUrl` text,
+	`imageKey` text,
 	`isProcessed` integer DEFAULT false NOT NULL,
 	`createdAt` integer NOT NULL
 );
+--> statement-breakpoint
+CREATE UNIQUE INDEX `bookmarks_userId_url_unique` ON `bookmarks` (`userId`,`url`);

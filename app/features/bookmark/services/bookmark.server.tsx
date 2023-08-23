@@ -98,7 +98,18 @@ export async function deleteBookmark(
   const db = createClient(env.DB);
 
   // TODO: returning().get() がないとクエリが実行されない
-  await db.delete(bookmarks).where(eq(bookmarks.slug, slug)).returning().get();
+  const record = await db
+    .delete(bookmarks)
+    .where(eq(bookmarks.slug, slug))
+    .returning()
+    .get();
+  if (record && record.imageKey) {
+    try {
+      await env.BUCKET.delete(record.imageKey);
+    } catch (e) {
+      console.log("error ", e);
+    }
+  }
 }
 
 async function getDigestString(str: string, salt?: string) {

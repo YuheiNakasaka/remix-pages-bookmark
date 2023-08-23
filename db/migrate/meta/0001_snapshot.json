@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "8f1b8271-66be-4229-ab89-c2defc02ab93",
+  "id": "e321c06d-95e5-4c8b-a540-f0b347256aad",
   "prevId": "1a738698-8c79-4bc6-90c7-f93d69e4d3aa",
   "tables": {
     "bookmarks": {
@@ -49,8 +49,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "ogpImageUrl": {
-          "name": "ogpImageUrl",
+        "imageKey": {
+          "name": "imageKey",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -72,7 +72,16 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "bookmarks_userId_url_unique": {
+          "name": "bookmarks_userId_url_unique",
+          "columns": [
+            "userId",
+            "url"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

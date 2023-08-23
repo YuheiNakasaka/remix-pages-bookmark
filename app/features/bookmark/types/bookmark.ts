@@ -3,7 +3,7 @@ export type Bookmark = {
   slug: string;
   url: string;
   title: string | null;
-  ogpImageUrl: string | null;
+  imageKey: string | null;
   comment: string | null;
   createdAt: Date;
 };

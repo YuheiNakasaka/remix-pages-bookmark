@@ -9,7 +9,6 @@ import { GoogleStrategy } from "remix-auth-google";
 import { users } from "db/schema";
 import { InferModel, eq } from "drizzle-orm";
 import { createClient } from "~/features/common/services/db.server";
-import { Env } from "~/features/common/types/env";
 
 export type AuthUser = {
   id: number;

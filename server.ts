@@ -1,6 +1,7 @@
 import { logDevReady } from "@remix-run/cloudflare";
 import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages";
 import * as build from "@remix-run/dev/server-build";
+import { queue } from "~/queue/consumer";
 
 if (process.env.NODE_ENV === "development") {
   logDevReady(build);
@@ -22,6 +23,23 @@ const handler: ExportedHandler<Env> = {
       return env.ASSETS.fetch(request);
     }
 
+    if (url.pathname.startsWith("/images/")) {
+      const object = await env.BUCKET.get(
+        url.pathname.replace("/images", "").slice(1)
+      );
+      if (object === null) {
+        return new Response("Object Not Found", { status: 404 });
+      }
+
+      const headers = new Headers();
+      object.writeHttpMetadata(headers);
+      headers.set("etag", object.httpEtag);
+
+      return new Response(object.body, {
+        headers,
+      });
+    }
+
     return handleRequest({
       request: new Request(request),
       functionPath: "",
@@ -34,10 +52,7 @@ const handler: ExportedHandler<Env> = {
       data: undefined,
     });
   },
-  async queue(batch: MessageBatch<any>, env: Env): Promise<void> {
-    let messages = JSON.stringify(batch.messages);
-    console.log(`consumed from our queue on Pages Function: ${messages}`);
-  },
+  queue,
 };
 
 export default handler;

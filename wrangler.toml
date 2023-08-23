@@ -18,6 +18,13 @@ queue = "bookmark-queue"
 
 [[queues.consumers]]
 queue = "bookmark-queue"
+max_batch_size = 1
+max_batch_timeout = 30
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "bookmark-bucket"
+preview_bucket_name = "bookmark-bucket-preview"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
